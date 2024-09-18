@@ -39,8 +39,8 @@ public class UserServiceTest {
   public void saveUser_Success() {
     // Given
     long userId = 1L;
-    String name = "Charles";
-    String email = "cgillian@ymail.com";
+    String name = "John Doe";
+    String email = "john.doe@example.com";
     var user = User.builder().id(userId).name(name).email(email).build();
 
     // When
@@ -54,8 +54,8 @@ public class UserServiceTest {
   @Test
   public void saveUser_notValidEmail_Failed() {
     long userId = 1L;
-    String name = "Charles";
-    String email = "cgillianymail.com";
+    String name = "John Doe";
+    String email = "john.doeexample.com";
     var user = User.builder().id(userId).name(name).email(email).build();
 
     Exception e = assertThrows(UserEmailNotValidException.class, () -> service.create(user));
@@ -70,8 +70,8 @@ public class UserServiceTest {
   public void saveUser_userExists_Failed() {
     // Given
     long userId = 1L;
-    String name = "Charles";
-    String email = "cgillian@ymail.com";
+    String name = "John Doe";
+    String email = "john.doe@example.com";
     var user = User.builder().id(userId).name(name).email(email).build();
 
     // When
@@ -90,7 +90,7 @@ public class UserServiceTest {
   public void saveUser_blankEmail_Failed() {
     // Given
     long userId = 1L;
-    String name = "Charles";
+    String name = "John Doe";
     String email = "";
     var user = User.builder().id(userId).name(name).email(email).build();
 
@@ -108,7 +108,7 @@ public class UserServiceTest {
     // Given
     long userId = 1L;
     String name = "";
-    String email = "cgillian@ymail.com";
+    String email = "john.doe@example.com";
     var user = User.builder().id(userId).name(name).email(email).build();
 
     // Then
@@ -124,13 +124,13 @@ public class UserServiceTest {
   public void findAll_Success() {
     // Given
     long userId1 = 1L;
-    String name1 = "Charles";
-    String email1 = "cgillian@ymail.com";
+    String name1 = "John Doe";
+    String email1 = "john.doe@example.com";
     var user1 = User.builder().id(userId1).name(name1).email(email1).build();
 
     long userId2 = 1L;
-    String name2 = "Hanna";
-    String email2 = "hbeckam@gmail.com";
+    String name2 = "Jane Smith";
+    String email2 = "jane.smith@example.com";
     var user2 = User.builder().id(userId2).name(name2).email(email2).build();
 
     var userList = Arrays.asList(user1, user2);
@@ -171,8 +171,8 @@ public class UserServiceTest {
   public void findById_Success() {
     // Given
     long userId = 1L;
-    String name = "Charles";
-    String email = "cgillian@ymail.com";
+    String name = "John Doe";
+    String email = "john.doe@example.com";
     var user = User.builder().id(userId).name(name).email(email).build();
 
     // When
@@ -199,7 +199,8 @@ public class UserServiceTest {
     // Given
     Exception e =
         assertThrows(
-            UserEmailNotFoundException.class, () -> service.findByEmail("jane@example.com"));
+            UserEmailNotFoundException.class,
+            () -> service.findByEmail("alice.johnson@example.com"));
 
     // Then
     var want = "user email not found";
@@ -211,10 +212,11 @@ public class UserServiceTest {
   @Test
   public void findByName_Failed() {
     // Given
-    Exception e = assertThrows(UserNameNotFoundException.class, () -> service.findByName("John"));
+    Exception e =
+        assertThrows(UserNameNotFoundException.class, () -> service.findByName("Alice Johnson"));
 
     // Then
-    var want = "user with name=John not found";
+    var want = "user with name=Alice Johnson not found";
     var got = e.getMessage();
 
     assertTrue(got.contains(want));
@@ -224,8 +226,8 @@ public class UserServiceTest {
   public void updateUser_Success() {
     // Given
     long userId = 1L;
-    String name = "Charles";
-    String email = "cgillian@ymail.com";
+    String name = "John Doe";
+    String email = "john.doe@example.com";
     var existingUser = User.builder().id(userId).name(name).email(email).build();
 
     String updatedEmail = "charliegillian@ymail.com";
@@ -247,8 +249,8 @@ public class UserServiceTest {
   public void updateUser_userNotExists_Failed() {
     // Given
     long userId = 1L;
-    String name = "Charles";
-    String email = "cgillian@ymail.com";
+    String name = "John Doe";
+    String email = "john.doe@example.com";
     var user = User.builder().id(userId).name(name).email(email).build();
 
     // When
@@ -264,8 +266,8 @@ public class UserServiceTest {
   public void updateUser_notValidEmail_Failed() {
     // Given
     long userId = 1L;
-    String name = "Charles";
-    String email = "cgillianymail.com";
+    String name = "John Doe";
+    String email = "john.doeexample.com";
     var user = User.builder().id(userId).name(name).email(email).build();
 
     // When
@@ -280,7 +282,7 @@ public class UserServiceTest {
     // Given
     long userId = 1L;
     String name = "";
-    String email = "cgillian@ymail.com";
+    String email = "john.doe@example.com";
     var user = User.builder().id(userId).name(name).email(email).build();
 
     // When
@@ -294,8 +296,8 @@ public class UserServiceTest {
   public void userDelete_Success() {
     // Given
     long userId = 1L;
-    String name = "Charles";
-    String email = "cgillian@ymail.com";
+    String name = "John Doe";
+    String email = "john.doe@example.com";
     var user = User.builder().id(userId).name(name).email(email).build();
 
     user.setProjects(new HashSet<>());
